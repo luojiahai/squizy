@@ -23,4 +23,9 @@ export class DatabaseClient {
   public getQuizzes() {
     return this.quizzes;
   }
+
+  public addQuiz(quiz: Quiz) {
+    this.quizzes.push(quiz);
+    fs.writeFileSync(PATH, JSON.stringify(this.quizzes));
+  }
 }
