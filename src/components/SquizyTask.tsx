@@ -80,7 +80,7 @@ export const SquizyTask = ({ quizzes, setQuizzes }: SquizyTaskProps) => {
             }
           }}
         >
-          Next
+          {index === quizzes.length - 1 ? "Finish" : "Next"}
         </Button>
         <Button variant="outlined" onClick={() => setAnswer(null)}>
           Reset
