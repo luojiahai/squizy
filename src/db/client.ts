@@ -1,14 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Question } from "./model";
+import { Quiz } from "./model";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = window.require('fs');
+const fs = window.require("fs");
 
-const PATH = './data/questions.json';
+const PATH = "./data/quizzes.json";
 
 export class DatabaseClient {
   private static instance: DatabaseClient;
-  private questions: Question[];
+  private quizzes: Quiz[];
 
   public static getInstance() {
     if (!DatabaseClient.instance) {
@@ -18,10 +17,10 @@ export class DatabaseClient {
   }
 
   private constructor() {
-    this.questions = JSON.parse(fs.readFileSync(PATH, 'utf-8'));
+    this.quizzes = JSON.parse(fs.readFileSync(PATH, "utf-8"));
   }
 
-  public getQuestions() {
-    return this.questions;
+  public getQuizzes() {
+    return this.quizzes;
   }
 }
