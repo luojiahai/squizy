@@ -1,12 +1,13 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import { Page } from "../hooks/usePageState";
+import { Button } from "@mui/material";
 
-interface AppContentProps {
+interface SquizyContentProps {
   page: Page;
 }
 
-const AppContent = (props: AppContentProps) => {
+export const SquizyContent = (props: SquizyContentProps) => {
   if (props.page === Page.Start) {
     return (
       <Container
@@ -16,6 +17,9 @@ const AppContent = (props: AppContentProps) => {
       >
         <div>
           <h1>Start</h1>
+          <Button variant="contained" color="primary">
+            Click
+          </Button>
         </div>
       </Container>
     );
@@ -32,5 +36,3 @@ const AppContent = (props: AppContentProps) => {
     </Container>
   );
 };
-
-export default AppContent;

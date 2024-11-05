@@ -3,7 +3,7 @@ import { useColorScheme } from "@mui/material/styles";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectProps } from "@mui/material/Select";
 
-const ColorModeSelect = (props: SelectProps) => {
+export const ColorModeSelect = (props: SelectProps) => {
   const { mode, setMode } = useColorScheme();
   if (!mode) {
     return null;
@@ -26,5 +26,3 @@ const ColorModeSelect = (props: SelectProps) => {
     </Select>
   );
 };
-
-export default ColorModeSelect;

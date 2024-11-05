@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import ColorModeIconDropdown from "../theme/ColorModeIconDropdown";
+import { ColorModeIconDropdown } from "../theme/ColorModeIconDropdown";
 import { Typography } from "@mui/material";
 import QuizIcon from "@mui/icons-material/Quiz";
 import { Page } from "../hooks/usePageState";
@@ -30,11 +30,11 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: "8px 12px",
 }));
 
-interface AppAppBarProps {
+interface SquizyAppBarProps {
   setPage: (page: Page) => void;
 }
 
-const AppAppBar = ({ setPage }: AppAppBarProps) => {
+export const SquizyAppBar = ({ setPage }: SquizyAppBarProps) => {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -149,5 +149,3 @@ const AppAppBar = ({ setPage }: AppAppBarProps) => {
     </AppBar>
   );
 };
-
-export default AppAppBar;

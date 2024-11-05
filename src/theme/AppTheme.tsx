@@ -17,7 +17,7 @@ interface AppThemeProps {
   themeComponents?: ThemeOptions["components"];
 }
 
-const AppTheme = ({ children, themeComponents }: AppThemeProps) => {
+export const AppTheme = ({ children, themeComponents }: AppThemeProps) => {
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -47,5 +47,3 @@ const AppTheme = ({ children, themeComponents }: AppThemeProps) => {
     </ThemeProvider>
   );
 };
-
-export default AppTheme;
