@@ -1,0 +1,5 @@
+# Squizy
+
+```
+npm start
+```
