@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -18,6 +18,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { DatabaseClient } from "../db/client";
 import Container from "@mui/material/Container";
 import { Quiz } from "../db/model";
+import AddIcon from "@mui/icons-material/Add";
+import { SquizyAddQuiz } from "./SquizyAddQuiz";
 
 interface Data extends Quiz {
   dataId: number;
@@ -95,11 +97,26 @@ function EnhancedTableHead(props: EnhancedTableHeadProps) {
 }
 
 interface EnhancedTableToolbarProps {
-  numSelected: number;
+  selected: readonly number[];
+  setSelected: (selected: readonly number[]) => void;
+  openDialog: () => void;
+  setQuizzes: (quizzes: Quiz[]) => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { selected, setSelected, openDialog, setQuizzes } = props;
+  const numSelected = selected.length;
+  const client = DatabaseClient.getInstance();
+
+  const handleDelete = () => {
+    const selectedQuizzes = client
+      .getQuizzes()
+      .filter((_, i) => selected.includes(i));
+    selectedQuizzes.forEach((quiz) => client.deleteQuiz(quiz.id));
+    setQuizzes(client.getQuizzes());
+    setSelected([]);
+  };
+
   return (
     <Toolbar
       sx={[
@@ -137,20 +154,31 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-      ) : null}
+      ) : (
+        // button to add new quiz
+        <Tooltip title="Add">
+          <IconButton onClick={openDialog}>
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </Toolbar>
   );
 }
 
 interface EnhancedTableProps {
-  rows: Data[];
+  quizzes: Quiz[];
+  setQuizzes: (quizzes: Quiz[]) => void;
+  openDialog: () => void;
 }
 
-const EnhancedTable = ({ rows }: EnhancedTableProps) => {
+const EnhancedTable = (props: EnhancedTableProps) => {
+  const { quizzes, setQuizzes, openDialog } = props;
+  const rows: Data[] = quizzes.map((quiz, i) => ({ ...quiz, dataId: i }));
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -198,15 +226,20 @@ const EnhancedTable = ({ rows }: EnhancedTableProps) => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () => [...rows].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage],
+  const visibleRows = [...rows].slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage,
   );
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          selected={selected}
+          setSelected={setSelected}
+          openDialog={openDialog}
+          setQuizzes={setQuizzes}
+        />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -284,7 +317,17 @@ const EnhancedTable = ({ rows }: EnhancedTableProps) => {
 
 export const SquizyLibrary = () => {
   const client = DatabaseClient.getInstance();
-  const allQuizzes = client.getQuizzes();
+  const [quizzes, setQuizzes] = useState<Quiz[]>(client.getQuizzes());
+  const [open, setOpen] = useState(false);
+
+  const openDialog = () => {
+    setOpen(true);
+  };
+
+  const closeDialog = () => {
+    setOpen(false);
+  };
+
   return (
     <Container
       maxWidth="lg"
@@ -293,8 +336,11 @@ export const SquizyLibrary = () => {
     >
       <Typography variant="h4">Library</Typography>
       <EnhancedTable
-        rows={allQuizzes.map((quiz, i) => ({ ...quiz, dataId: i }))}
+        quizzes={quizzes}
+        setQuizzes={setQuizzes}
+        openDialog={openDialog}
       />
+      <SquizyAddQuiz open={open} closeDialog={closeDialog} />
     </Container>
   );
 };

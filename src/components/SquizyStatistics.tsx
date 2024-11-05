@@ -9,7 +9,8 @@ export const SquizyStatistics = () => {
       component="main"
       sx={{ display: "flex", flexDirection: "column", my: 16, gap: 2 }}
     >
-      <Typography variant="h4">Coming soon...</Typography>
+      <Typography variant="h4">Statistics</Typography>
+      <Typography variant="body1">Coming soon...</Typography>
     </Container>
   );
 };

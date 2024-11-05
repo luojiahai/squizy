@@ -26,6 +26,11 @@ export class DatabaseClient {
 
   public addQuiz(quiz: Quiz) {
     this.quizzes.push(quiz);
-    fs.writeFileSync(PATH, JSON.stringify(this.quizzes));
+    fs.writeFileSync(PATH, JSON.stringify(this.quizzes, null, 2));
+  }
+
+  public deleteQuiz(id: string) {
+    this.quizzes = this.quizzes.filter((quiz) => quiz.id !== id);
+    fs.writeFileSync(PATH, JSON.stringify(this.quizzes, null, 2));
   }
 }
