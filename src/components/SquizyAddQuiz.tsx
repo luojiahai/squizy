@@ -63,6 +63,7 @@ export const SquizyAddQuiz = (props: SquizyAddQuizProps) => {
           />
           <TextField
             required
+            multiline={true}
             id="choice0"
             name="choice0"
             label="Choice 0"
@@ -70,6 +71,7 @@ export const SquizyAddQuiz = (props: SquizyAddQuizProps) => {
           />
           <TextField
             required
+            multiline={true}
             id="choice1"
             name="choice1"
             label="Choice 1"
@@ -77,6 +79,7 @@ export const SquizyAddQuiz = (props: SquizyAddQuizProps) => {
           />
           <TextField
             required
+            multiline={true}
             id="choice2"
             name="choice2"
             label="Choice 2"
@@ -84,6 +87,7 @@ export const SquizyAddQuiz = (props: SquizyAddQuizProps) => {
           />
           <TextField
             required
+            multiline={true}
             id="choice3"
             name="choice3"
             label="Choice 3"
@@ -99,6 +103,7 @@ export const SquizyAddQuiz = (props: SquizyAddQuizProps) => {
           />
           <TextField
             required
+            multiline={true}
             id="note"
             name="note"
             label="Note"
