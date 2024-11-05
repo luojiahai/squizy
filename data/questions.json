@@ -1,0 +1,26 @@
+[
+  {
+    "id": "54b3e755-3152-43d4-b438-37e7c0f25d5d",
+    "text": "What is the capital of France?",
+    "choices": [
+      "Paris",
+      "London",
+      "Berlin",
+      "Madrid"
+    ],
+    "answer": 0,
+    "note": "Paris is the capital of France."
+  },
+  {
+    "id": "34d66a2e-27c0-4946-97ce-0ac06ca97f97",
+    "text": "A company has an infernal web application that runs on Amazon EC2 instances behind an Application Load Balancer. The instances run in an Amazon EC2 Auto Scaling group in a single Availability Zone. A SysOps administrator must make the application highly available. Which action should the SysOps administrator take to meet this requirement?",
+    "choices": [
+      "Increase the maximum number of instances in the Auto Scaling group to meet the capacity that is required at peak usage.",
+      "Increase the minimum number of instances in the Auto Scaling group to meet the capacity that is required at peak usage.",
+      "Update the Auto Scaling group to launch new instances in a second Availability Zone in the same AWS Region.",
+      "Update the Auto Scaling group to launch new instances in an Availability Zone in a second AWS Region."
+    ],
+    "answer": 2,
+    "note": "A and B doesn't make it highly available if a zone goes down. D is false as ASG is region bound."
+  }
+]
